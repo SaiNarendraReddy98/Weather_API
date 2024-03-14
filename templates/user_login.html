@@ -1,0 +1,32 @@
+{% extends 'dummy.html' %}
+
+
+{% block title %}
+    <title>Login</title>
+{% endblock %}
+
+{% block body_block %}
+    <center>
+        <br><br><br>
+        <h1 class="text-white">Weather_API Login Form</h1>
+
+        <form method="POST">
+            {% csrf_token %} <br><br>
+
+            <h3 class="text-white"><label for="un">Username</label></h3>
+            <input type="text" name="un" id="un"><br><br>
+
+            <h3 class="text-white"><label for="pw">Password</label></h3>
+            <input type="password" name="pw" id="pw"><br><br>
+            
+            
+            
+            <input type="submit" class="btn btn-success" value="Login">
+            <br>
+            <br>
+            <div class="btn btn-warning"><a href="{% url 'registration' %}">i'm not user. register?</a></div>
+
+        </form>
+
+    </center>
+{% endblock %}

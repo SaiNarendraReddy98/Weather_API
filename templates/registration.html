@@ -1,0 +1,25 @@
+{% extends 'dummy.html' %}
+
+
+{% block title %}
+    <title>Registration page</title>
+{% endblock %}
+
+{% block body_block %}
+    <center>
+        <h1 class="text-white">Weather_API Registration Form</h1>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+                <h4 class="text-white">
+                    {{ufo.as_p}}
+                    {{pfo.as_p}}
+                </h4>
+            <input type="submit"  class="btn btn-success" value="register">
+            <br>
+            <br>
+            <button class="btn btn-warning"><a href="{% url 'user_login' %}">i'm already user. login?</a></button>
+        </form>
+    </center>
+{% endblock %}
+

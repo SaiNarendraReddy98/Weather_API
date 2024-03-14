@@ -1,0 +1,46 @@
+{% extends 'dummy.html' %}
+
+{% block title %}
+    <title>Home Page</title>
+
+{% endblock %}
+
+
+{% block body_block %}
+<center>
+    
+    {% if obj %}
+    <h1 class="text-white">Weathe_API Data</h1> <br><br>
+    <table border="3px" class="bg-white">
+        <tr><th>username</th>
+            <th>city</th>
+            <th>temperature</th>
+            <th>humidity</th>
+            <th>weather</th>
+            <th>speed</th>
+            <th>timestamp</th>
+        </tr>
+
+        <tr><th>{{obj.username}}</th>
+            <th>{{obj.city}}</th>
+            <th>{{obj.temperature}}</th>
+            <th>{{obj.humidity}}</th>
+            <th>{{obj.weather}}</th>
+            <th>{{obj.speed}}</th>
+            <th>{{obj.timestamp}}</th>
+        </tr>
+
+
+    </table>
+
+    {% else %}
+        <h1 class="text-white">Weathe_API Data</h1> <br><br>
+        <form method="POST">
+        {% csrf_token %}
+          <h2 class="text-white"><label id="city">Search here with your City_Name :-</label> </h2>
+          <input type="text" id="city" name="city" placeholder="ex:-Visakhapatnam"> <br><br>
+          <input type="submit" class="btn btn-success"  value="confirm">
+        </form>
+    {% endif %}
+</center>
+{% endblock %}
