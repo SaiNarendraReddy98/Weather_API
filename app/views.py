@@ -10,6 +10,8 @@ import requests
 
 # Create your views here.
 
+
+
 def registration(request):
     ufo=UserForm()
     pfo=ProfileForm()
@@ -30,17 +32,35 @@ def registration(request):
             MPFDO.save()
 
             send_mail('Registration Done with Weather_API',
-            'Thank you for Registration you have successfully register in Weather_API your welcome..! Search your location in the page...!',
+                      
+            '''Thank you for Registration you have successfully register in Weather_API your welcome..! Search your location in the page...!
+            The Easiest Weather API -
+                       Query Global Weather Data for Free Integrate weather into your applications with the easiest-to-use global weather API including historical weather data, current conditions, up-to-date forecasts, and historical forecast information.
+             
+                       Try our single-endpoint forecast and weather history API for free to see why more businesses, developers, and analysts choose Visual Crossing..
+                       
+                               1.Historical Weather
+                        Correlate existing business data with over 50 years of historical weather reports for every location on the Earth.
+                               2.Forecast & Current Conditions
+                        Schedule your activities and your business using current weather data and our global blended 15-day forecast.
+                               3.Historical Forecast
+                        Gain insight into customer behavior using the exact forecast that your customers saw on the day that they make their plans.
+                               4.Statistical Forecast
+                        Understand future weather conditions beyond the 15-day model-based forecast using statistical patterns and climate normals.''',
+
             'sainarendra62645@gmail.com',
             [MUFDO.email],
             fail_silently=False,
             )
 
-            return HttpResponse('Registartion Is Successfull')
+            return HttpResponse('<center><h1>Registartion Is Successfull')
         else:
-            return HttpResponse('Invalid Data')
+            return HttpResponse('<center><h1>Invalid Data')
 
     return render(request,'registration.html',d)
+
+
+
 
 
 def user_login(request):
@@ -53,9 +73,12 @@ def user_login(request):
             request.session['username'] = un
             return HttpResponseRedirect(reverse('dummy'))
         else:
-            return HttpResponse('Invalid credentials please try again...')
+            return HttpResponse('<center><h1>Invalid credentials please try again...')
         
     return render(request,'user_login.html')
+
+
+
 
 
 def dummy(request):
@@ -67,11 +90,18 @@ def dummy(request):
     return render(request,'dummy.html')
 
 
+
+
+
 @login_required
 def user_logout(request):
     logout(request)
 
     return HttpResponseRedirect(reverse('dummy'))
+
+
+
+
 
 
 @login_required
@@ -82,6 +112,9 @@ def profile_display(request):
     d={'UO':UO,'PO':PO}
 
     return render(request,'profile_display.html',d)
+
+
+
 
 
 @login_required
@@ -105,10 +138,16 @@ def search(request):
         return render(request,'search.html',d)
     return render(request,'search.html')
 
+
+
+
 def all_history(request):
     LOW = WeatherData.objects.all()
     d = {'LOW': LOW}
     return render(request,'all_history.html',d)
+
+
+
 
 
 @login_required
@@ -119,3 +158,43 @@ def user_history(request):
     d={'LOW':LOW}
     return render(request,'user_history.html',d)
 
+
+
+
+
+
+def reset_password(request):
+
+    if request.method=='POST':
+        un=request.POST['un']
+        pw=request.POST['pw']
+
+        LUO=User.objects.filter(username=un)
+
+        if LUO:
+            UO=LUO[0]
+            UO.set_password(pw)
+            UO.save()
+            return HttpResponseRedirect(reverse('user_login'))
+        else:
+            return HttpResponse('<center><h1>User is not present in my DataBase')
+    return render(request,'reset_password.html')
+
+
+
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        password = request.POST['pw']
+        password2 = request.POST['pw2']
+        if password == password2:
+            un = request.session.get('username')
+            UO = User.objects.get(username=un)
+            UO.set_password(password)
+            UO.save()
+            return HttpResponse('<center><h1>Password change successfully')
+        else:
+            return HttpResponse('<center><h1>Password and Re-Password not match')
+    
+    return render(request,'change_password.html')

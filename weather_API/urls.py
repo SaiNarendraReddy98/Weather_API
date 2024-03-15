@@ -30,5 +30,7 @@ urlpatterns = [
     path('search/',search,name='search'),
     path('all_history/',all_history,name='all_history'),
     path('user_history/',user_history,name='user_history'),
+    path('reset_password/',reset_password,name='reset_password'),
+    path('change_password/',change_password,name='change_password'),
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
